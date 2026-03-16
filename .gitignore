@@ -1,0 +1,16 @@
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+
+# Private context — never commit
+MEMORY/
+MEMORY.md
+USER/
+SOUL/
+*.env
+*.secret
