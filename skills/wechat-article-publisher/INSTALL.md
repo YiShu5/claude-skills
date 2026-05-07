@@ -68,10 +68,10 @@ python3 config.py
 
 ```
 微信公众号配置:
-  AppID: wx6299120c344dc04f
-  AppSecret: 7006aac58b...
+  AppID: wx62****04f
+  AppSecret: 7006****999
 
-豆包 API Key: e2bde60f-15b7-4b3b-a...
+豆包 API Key: ark-****cd
 
 Markdown 排版配置:
   转换器: doocs
