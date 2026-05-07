@@ -28,9 +28,9 @@ Claude Code Skills 的官方生态还在早期，大多数 skill 写得粗糙：
 
 | Skill | 用途 | 状态 |
 |---|---|---|
-| [`clawd-animation`](./skills/clawd-animation) | Clawd 像素风动画生成器（4-8s 多阶段叙事） | 🚧 PR 中 |
-| [`clawd-animation-lite`](./skills/clawd-animation-lite) | Clawd 像素动画轻量版（1-3s 单动作，省 token） | 🚧 PR 中 |
-| [`self-improving-agent`](./skills/self-improving-agent) | 会话结束时提取经验教训到 `.learnings/` 暂存区，人工审核后才入长期记忆 | 🚧 PR 中 |
+| [`clawd-animation`](./skills/clawd-animation) | Clawd 像素风动画生成器（4-8s 多阶段叙事） | ✅ |
+| [`clawd-animation-lite`](./skills/clawd-animation-lite) | Clawd 像素动画轻量版（1-3s 单动作，省 token） | ✅ |
+| [`self-improving-agent`](./skills/self-improving-agent) | 会话结束时提取经验教训到 `.learnings/` 暂存区，人工审核后才入长期记忆 | ✅ |
 
 ---
 
