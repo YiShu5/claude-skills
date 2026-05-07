@@ -1,0 +1,39 @@
+# 私密配置文件（包含真实凭证）
+.env
+
+# Python 缓存
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# 临时文件
+*.tmp
+*.log
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.html
+*.md~
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统
+.DS_Store
+Thumbs.db
+
+# 测试文件
+test_*.py
+*_test.py
