@@ -1,10 +1,10 @@
 <div align="center">
 
-# 🦞 Lobster Skills
+# 🧩 Claude Skills
 
-**意疏的 Claude Code Skills 集合 · 经过实战打磨的能力插件**
+**通用 Claude Code Skills 集合 · 即插即用的能力插件**
 
-[![Skills](https://img.shields.io/badge/Skills-4-CD6E58?style=for-the-badge)](./skills)
+[![Skills](https://img.shields.io/badge/Skills-4-6366f1?style=for-the-badge)](./skills)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Compatible-6366f1?style=for-the-badge)](https://claude.com/claude-code)
 [![License](https://img.shields.io/badge/License-MIT-f59e0b?style=for-the-badge)](./LICENSE)
 
@@ -16,7 +16,7 @@
 
 Claude Code Skills 的官方生态还在早期，大多数 skill 写得粗糙：description 含糊触发不到、references 一股脑全读浪费 token、规则靠软建议被模型自由发挥。
 
-这个仓库收录我自己写或改造过、**经过反复使用验证**的 skills，遵循三个原则：
+这个仓库收录**经过反复使用验证、可即插即用**的 skills，遵循三个原则：
 
 1. **description 是触发器，不是介绍** — 把隐性意图、口语化说法、中英文同义词都写进去
 2. **主动管理 token 预算** — 提供 lite/full 双版本，references 标注"何时读 / 何时跳过"
@@ -39,10 +39,10 @@ Claude Code Skills 的官方生态还在早期，大多数 skill 写得粗糙：
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/YiShu5/lobster-skills.git
+git clone https://github.com/YiShu5/claude-skills.git
 
 # 2. 把想用的 skill 文件夹复制到 Claude Code 的 skills 目录
-cp -r lobster-skills/skills/clawd-animation ~/.claude/skills/
+cp -r claude-skills/skills/clawd-animation ~/.claude/skills/
 
 # 3. 在 Claude Code 中直接对话触发，无需额外配置
 ```
