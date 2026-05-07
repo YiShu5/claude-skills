@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clawd Eats Ice Cream</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #E8E5E0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+  }
+  canvas {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+  .info {
+    color: #999;
+    font-size: 11px;
+    margin-top: 10px;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+<canvas id="c" width="720" height="720"></canvas>
+<div class="info" id="info">clawd eats ice cream - 0.0s / 5.0s</div>
+
+<script>
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+
+// ═══════════════════════════════════════════════
+// PIXEL GRID - matches the video's ~20px grid
+// ═══════════════════════════════════════════════
+const PX = 20;  // each logical pixel = 20x20 screen pixels
+const GW = cv.width / PX;   // 36
+const GH = cv.height / PX;  // 36
+
+// ═══════════════════════════════════════════════
+// COLORS - exact from video analysis
+// ═══════════════════════════════════════════════
+const COL = {
+  bg:       '#F9F7F4',  // warm off-white background
+  dot:      '#E0DDD8',  // subtle dot grid
+  starDark: '#333333',  // dark asterisk stars
+  starMid:  '#888888',  // medium stars
+  starLight:'#BBBBBB',  // light stars
+
+  // Clawd body - single flat color from video
+  body:     '#CD6E58',  // rgb(205,110,88) - THE Clawd color
+  bodyDark: '#B85E4A',  // subtle darker for side shading (minimal)
+
+  eye:      '#000000',  // pure black eyes
+  teeth:    '#F9F7F4',  // white teeth dots
+
+  // Ice cream
+  mint:     '#9ED8B8',
+  mintL:    '#B8E8D0',
+  pink:     '#F0A0AE',
+  pinkL:    '#F5BCC6',
+  vanilla:  '#F5E6A0',
+  vanillaL: '#FAF0BE',
+  cone1:    '#E7AF58',  // from video hat colors
+  cone2:    '#ECCC7A',  // lighter cone
+  cone3:    '#D49A42',  // dark cone
+  cherry:   '#E0694C',  // from video candle flame color
+  cherryDk: '#C85540',
+  candlePk: '#BB5985',  // from video candle color (purple-pink)
+};
+
+// Draw a single pixel block
+function px(x, y, col) {
+  ctx.fillStyle = col;
+  ctx.fillRect(Math.round(x) * PX, Math.round(y) * PX, PX, PX);
+}
+
+// ═══════════════════════════════════════════════
+// BACKGROUND - dot grid + asterisk stars
+// ═══════════════════════════════════════════════
+function drawBg() {
+  ctx.fillStyle = COL.bg;
+  ctx.fillRect(0, 0, cv.width, cv.height);
+
+  // Dot grid (every 2 logical pixels, subtle dots)
+  for (let gy = 1; gy < GH; gy += 2) {
+    for (let gx = 1; gx < GW; gx += 2) {
+      ctx.fillStyle = COL.dot;
+      const cx = gx * PX + PX/2;
+      const cy = gy * PX + PX/2;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+}
+
+// Asterisk stars - positioned like the video
+const starPositions = [
+  { x: 4, y: 3, type: 'dark' },
+  { x: 14, y: 2, type: 'dark' },
+  { x: 27, y: 1, type: 'dark' },
+  { x: 31, y: 3, type: 'mid' },
+  { x: 6, y: 7, type: 'dark' },
+  { x: 19, y: 5, type: 'light' },
+  { x: 24, y: 6, type: 'mid' },
+  { x: 9, y: 10, type: 'dark' },
+  { x: 2, y: 13, type: 'dark' },
+  { x: 33, y: 8, type: 'dark' },
+  { x: 29, y: 12, type: 'dark' },
+  { x: 7, y: 16, type: 'mid' },
+  { x: 3, y: 20, type: 'dark' },
+  { x: 30, y: 18, type: 'mid' },
+  { x: 1, y: 25, type: 'dark' },
+  { x: 33, y: 24, type: 'dark' },
+  { x: 5, y: 30, type: 'light' },
+  { x: 28, y: 28, type: 'mid' },
+  { x: 15, y: 9, type: 'light' },
+  { x: 21, y: 14, type: 'mid' },
+];
+
+function drawStars(f) {
+  ctx.font = 'bold 14px serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  for (const s of starPositions) {
+    // Gentle twinkling
+    const twinkle = Math.sin(f * 0.08 + s.x * 0.5 + s.y * 0.3);
+    let col;
+    if (s.type === 'dark') col = twinkle > 0 ? COL.starDark : COL.starMid;
+    else if (s.type === 'mid') col = twinkle > 0.3 ? COL.starMid : COL.starLight;
+    else col = twinkle > 0 ? COL.starLight : COL.dot;
+    ctx.fillStyle = col;
+    const sx = s.x * PX + PX / 2;
+    const sy = s.y * PX + PX / 2;
+    // Draw asterisk star like in the video
+    const size = s.type === 'dark' ? 7 : 5;
+    ctx.font = `bold ${size * 2}px serif`;
+    ctx.fillText('✳', sx, sy);
+  }
+}
+
+// ═══════════════════════════════════════════════
+// CLAWD SPRITE - pixel-perfect from video analysis
+// ═══════════════════════════════════════════════
+// Extracted at ps=31 grid from frame_000.png
+// 0 = empty, 1 = body, 2 = eye (black)
+// 14 cols wide (0-13), 8 rows tall — FLAT & WIDE like the video
+const CLAWD_W = 14;
+const CLAWD_BODY = [
+  //0  1  2  3  4  5  6  7  8  9 10 11 12 13
+  [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],  // 0 head (8 wide, FULL RECTANGLE)
+  [0, 0, 0, 1, 2, 1, 1, 1, 1, 2, 1, 0, 0, 0],  // 1 eyes (1px each at col 4 and 9)
+  [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],  // 2 arms (12 wide)
+  [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],  // 3 arms
+  [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],  // 4 belly
+  [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],  // 5 belly
+  [0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0],  // 6 legs (4 at cols 3,5,8,10)
+  [0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0],  // 7 legs
+];
+
+function drawClawd(ox, oy) {
+  for (let r = 0; r < CLAWD_BODY.length; r++) {
+    for (let c = 0; c < CLAWD_BODY[r].length; c++) {
+      const v = CLAWD_BODY[r][c];
+      if (v === 0) continue;
+      px(ox + c, oy + r, v === 2 ? COL.eye : COL.body);
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════
+// ICE CREAM - matching video's hat style colors
+// ═══════════════════════════════════════════════
+// 0=empty, 1=cone, 2=coneDark, 3=vanilla, 4=pink, 5=mint, 6=cherry, 7=highlight
+const ICECREAM = [
+  [0,0,0,0,6,6,0,0,0,0],  // 0  cherry
+  [0,0,0,6,6,6,6,0,0,0],  // 1  cherry
+  [0,0,0,0,6,6,0,0,0,0],  // 2  stem
+  [0,0,5,5,5,5,5,5,0,0],  // 3  mint scoop
+  [0,5,7,5,5,5,5,5,5,0],  // 4
+  [0,5,5,5,5,5,5,5,5,0],  // 5
+  [0,0,4,4,4,4,4,4,0,0],  // 6  pink scoop
+  [0,4,7,4,4,4,4,4,4,0],  // 7
+  [0,4,4,4,4,4,4,4,4,0],  // 8
+  [0,0,3,3,3,3,3,3,0,0],  // 9  vanilla scoop
+  [0,3,7,3,3,3,3,3,3,0],  // 10
+  [0,3,3,3,3,3,3,3,3,0],  // 11
+  [0,0,1,1,1,1,1,1,0,0],  // 12 cone top
+  [0,0,0,2,1,1,2,0,0,0],  // 13
+  [0,0,0,1,2,2,1,0,0,0],  // 14
+  [0,0,0,0,1,1,0,0,0,0],  // 15
+  [0,0,0,0,2,0,0,0,0,0],  // 16 cone tip
+];
+
+const IC_PAL = {
+  1: COL.cone1,
+  2: COL.cone3,
+  3: COL.vanilla,
+  4: COL.pink,
+  5: COL.mint,
+  6: COL.cherry,
+  7: '#FFFFFF',  // highlight dot
+};
+
+function drawIceCream(ix, iy, eatStage) {
+  for (let r = 0; r < ICECREAM.length; r++) {
+    // Skip eaten scoops based on eatStage
+    if (eatStage >= 1 && r >= 3 && r <= 5) continue;   // mint eaten
+    if (eatStage >= 2 && r >= 6 && r <= 8) continue;   // pink eaten
+    if (eatStage >= 3 && r >= 9 && r <= 11) continue;  // vanilla eaten
+    if (eatStage >= 1 && r <= 2) continue;              // cherry gone with mint
+
+    for (let c = 0; c < ICECREAM[r].length; c++) {
+      const v = ICECREAM[r][c];
+      if (v === 0) continue;
+      const col = IC_PAL[v];
+      if (col) px(ix + c, iy + r, col);
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════
+// PARTICLES - ice cream crumbs
+// ═══════════════════════════════════════════════
+let particles = [];
+function addParticle(x, y, col) {
+  particles.push({
+    x, y,
+    vx: (Math.random() - 0.5) * 0.8,
+    vy: -Math.random() * 0.8 - 0.3,
+    life: 1.0,
+    col,
+  });
+}
+function tickParticles() {
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += 0.04;
+    p.life -= 0.02;
+    if (p.life <= 0) { particles.splice(i, 1); continue; }
+    if (p.life > 0.15) px(Math.round(p.x), Math.round(p.y), p.col);
+  }
+}
+
+// ═══════════════════════════════════════════════
+// HEART pixel art (tiny)
+// ═══════════════════════════════════════════════
+function drawHeart(hx, hy, col) {
+  px(hx, hy, col);     px(hx+2, hy, col);
+  px(hx-1, hy+1, col); px(hx, hy+1, col); px(hx+1, hy+1, col); px(hx+2, hy+1, col); px(hx+3, hy+1, col);
+  px(hx, hy+2, col);   px(hx+1, hy+2, col); px(hx+2, hy+2, col);
+  px(hx+1, hy+3, col);
+}
+
+// ═══════════════════════════════════════════════
+// SPEECH BUBBLE - pixel style
+// ═══════════════════════════════════════════════
+function drawBubble(bx, by, text) {
+  const tw = text.length + 2;
+  // Background
+  for (let y = 0; y < 3; y++) {
+    for (let x = 0; x < tw; x++) {
+      const isEdge = (y === 0 || y === 2 || x === 0 || x === tw - 1);
+      if ((y === 0 || y === 2) && (x === 0 || x === tw - 1)) continue;
+      px(bx + x, by + y, isEdge ? COL.starMid : '#FFFFFF');
+    }
+  }
+  // Tail
+  px(bx + 1, by + 3, COL.starMid);
+
+  // Text
+  ctx.fillStyle = COL.starDark;
+  ctx.font = 'bold 12px Courier New';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'top';
+  ctx.fillText(text, (bx + 1) * PX + 3, (by) * PX + 7);
+}
+
+// ═══════════════════════════════════════════════
+// NOM text effect
+// ═══════════════════════════════════════════════
+function drawNomText(nx, ny, alpha) {
+  ctx.globalAlpha = alpha;
+  ctx.fillStyle = COL.cherry;
+  ctx.font = 'bold 18px Courier New';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'top';
+  ctx.fillText('NOM!', nx * PX, ny * PX);
+  ctx.globalAlpha = 1;
+}
+
+// ═══════════════════════════════════════════════
+// ANIMATION CONTROLLER
+// ═══════════════════════════════════════════════
+const FPS = 30;
+const DUR = 5;
+const TOTAL = FPS * DUR;
+let startTime = null;
+
+function getPhase(t) {
+  if (t < 0.10) return { ph: 'enter', pt: t / 0.10 };
+  if (t < 0.20) return { ph: 'spot', pt: (t - 0.10) / 0.10 };
+  if (t < 0.32) return { ph: 'approach', pt: (t - 0.20) / 0.12 };
+  if (t < 0.40) return { ph: 'grab', pt: (t - 0.32) / 0.08 };
+  if (t < 0.52) return { ph: 'eat1', pt: (t - 0.40) / 0.12 };
+  if (t < 0.62) return { ph: 'eat2', pt: (t - 0.52) / 0.10 };
+  if (t < 0.72) return { ph: 'eat3', pt: (t - 0.62) / 0.10 };
+  if (t < 0.82) return { ph: 'eat4', pt: (t - 0.72) / 0.10 };
+  return { ph: 'happy', pt: (t - 0.82) / 0.18 };
+}
+
+function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+function easeInOut(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3) / 2; }
+
+// ═══════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════
+function render(f) {
+  const t = f / TOTAL;
+  const { ph, pt } = getPhase(t);
+
+  // Background
+  drawBg();
+  drawStars(f);
+
+  // ── Ice cream position (right side of canvas) ──
+  const icBaseX = 22;
+  const icBaseY = 8;
+  let eatStage = 0;
+  let icWobble = 0;
+
+  if (ph === 'eat1') { eatStage = 0; icWobble = Math.sin(f * 0.7) > 0 ? -1 : 0; }
+  else if (ph === 'eat2') { eatStage = 1; icWobble = Math.sin(f * 0.7) > 0 ? -1 : 0; }
+  else if (ph === 'eat3') { eatStage = 2; icWobble = Math.sin(f * 0.7) > 0 ? -1 : 0; }
+  else if (ph === 'eat4') { eatStage = 3; icWobble = Math.sin(f * 0.7) > 0 ? -1 : 0; }
+  else if (ph === 'happy') { eatStage = 4; }
+
+  drawIceCream(icBaseX, icBaseY + icWobble, eatStage);
+
+  // ── Clawd position (14 wide × 8 tall sprite) ──
+  const homeX = 2;
+  const homeY = 20;
+  const nearX = 10;
+  let cx, cy;
+  let bounce = 0;
+
+  switch (ph) {
+    case 'enter': {
+      cx = Math.round(-14 + easeOut(pt) * (homeX + 14));
+      cy = homeY;
+      break;
+    }
+    case 'spot': {
+      cx = homeX;
+      cy = homeY;
+      if (pt > 0.2 && pt < 0.5) bounce = -1;
+      if (pt > 0.6 && pt < 0.8) bounce = -1;
+      break;
+    }
+    case 'approach': {
+      cx = Math.round(homeX + easeInOut(pt) * (nearX - homeX));
+      cy = homeY;
+      break;
+    }
+    case 'grab': {
+      cx = nearX;
+      cy = homeY;
+      bounce = Math.round(-pt * 2);
+      break;
+    }
+    case 'eat1': case 'eat2': case 'eat3': case 'eat4': {
+      cx = nearX;
+      cy = homeY;
+      const bob = Math.sin(f * 0.7);
+      bounce = bob > 0 ? -2 : -1;
+      // Nom particles
+      if (f % 4 === 0) {
+        const cols = [COL.mint, COL.pink, COL.vanilla, COL.mintL, COL.pinkL];
+        addParticle(
+          cx + 10 + Math.random() * 3,
+          cy - 3 + Math.random() * 2,
+          cols[Math.floor(Math.random() * cols.length)]
+        );
+      }
+      break;
+    }
+    case 'happy': {
+      cx = nearX;
+      cy = homeY;
+      bounce = Math.round(Math.sin(pt * Math.PI * 7) * 1.5);
+      if (f % 12 === 0) {
+        addParticle(cx + 5 + Math.random() * 5, cy - 3, COL.cherry);
+      }
+      break;
+    }
+  }
+
+  // Draw Clawd
+  drawClawd(cx, cy + bounce);
+
+  // Draw particles
+  tickParticles();
+
+  // Floating hearts during happy
+  if (ph === 'happy') {
+    const h1y = cy - 4 - Math.round(pt * 8);
+    const h2y = cy - 2 - Math.round(Math.max(0, pt - 0.3) * 10);
+    if (h1y > 0) drawHeart(cx + 6, h1y, COL.cherry);
+    if (h2y > 0 && pt > 0.3) drawHeart(cx + 14, h2y, COL.pink);
+    if (pt > 0.55) {
+      const h3y = cy - 5 - Math.round((pt - 0.4) * 7);
+      if (h3y > 0) drawHeart(cx + 2, h3y, COL.body);
+    }
+  }
+
+  // NOM! text during eating
+  if ((ph === 'eat1' || ph === 'eat2' || ph === 'eat3' || ph === 'eat4')) {
+    if (Math.sin(f * 0.7) > 0.2) {
+      drawNomText(cx + 15, cy - 3 + bounce, 0.85);
+    }
+  }
+
+  // Speech bubble
+  if (ph === 'spot' && pt > 0.15) {
+    drawBubble(cx + 15, cy - 3, '!!');
+  }
+  if (ph === 'happy' && pt > 0.3) {
+    drawBubble(cx + 15, cy - 4 + bounce, 'Yummy~');
+  }
+}
+
+// ═══════════════════════════════════════════════
+// LOOP
+// ═══════════════════════════════════════════════
+function loop(ts) {
+  if (!startTime) startTime = ts;
+  const elapsed = (ts - startTime) / 1000;
+  const loopT = elapsed % DUR;
+  const frame = Math.floor(loopT * FPS);
+
+  if (loopT < 0.05) particles = [];
+
+  render(frame);
+
+  document.getElementById('info').textContent =
+    `clawd eats ice cream - ${loopT.toFixed(1)}s / ${DUR}.0s  |  loop ${Math.floor(elapsed / DUR) + 1}`;
+
+  requestAnimationFrame(loop);
+}
+
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clawd Animation Template</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #E8E5E0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+  }
+  canvas {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+  .info {
+    color: #999;
+    font-size: 11px;
+    margin-top: 10px;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+<canvas id="c" width="720" height="720"></canvas>
+<div class="info" id="info">clawd animation template</div>
+
+<script>
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+
+// ─── PALETTE ─────────────────────────────────────────────────
+const PALETTE = {
+  background: { bg: '#F9F7F4', dot: '#E0DDD8', page: '#E8E5E0' },
+  stars:      { dark: '#333333', mid: '#888888', light: '#BBBBBB' },
+  clawd:      { body: '#CD6E58', eye: '#000000' },
+  ui:         { white: '#FFFFFF', bubbleBorder: '#888888', textDark: '#333333' }
+  // 新道具颜色在此添加，例如: rain: { drop: '#88BBDD', ... }
+};
+
+// ─── PIXEL GRID ──────────────────────────────────────────────
+const PX = 20;
+const GW = cv.width / PX;   // 36
+const GH = cv.height / PX;  // 36
+
+function px(gx, gy, col) {
+  ctx.fillStyle = col;
+  ctx.fillRect(gx * PX, gy * PX, PX, PX);
+}
+
+// ─── SPRITES ─────────────────────────────────────────────────
+
+// Clawd body (14×8)
+const CLAWD_BODY = {
+  width: 14, height: 8,
+  data: [
+    [0,0,0,1,1,1,1,1,1,1,1,0,0,0],
+    [0,0,0,1,1,1,1,1,1,1,1,0,0,0],
+    [0,1,1,1,1,1,1,1,1,1,1,1,1,0],
+    [0,1,1,1,1,1,1,1,1,1,1,1,1,0],
+    [0,0,0,1,1,1,1,1,1,1,1,0,0,0],
+    [0,0,0,1,1,1,1,1,1,1,1,0,0,0],
+    [0,0,0,1,0,1,0,0,1,0,1,0,0,0],
+    [0,0,0,1,0,1,0,0,1,0,1,0,0,0]
+  ],
+  anchors: {
+    eyeLeft:   { x: 4,  y: 1 },
+    eyeRight:  { x: 9,  y: 1 },
+    hatTop:    { x: 7,  y: -1 },
+    handLeft:  { x: 0,  y: 2 },
+    handRight: { x: 13, y: 2 },
+    sitBottom: { x: 7,  y: 8 }
+  }
+};
+
+// Eye variants
+const EYES = {
+  forward:    { left: {dx:0,dy:0}, right: {dx:0,dy:0} },
+  look_right: { left: {dx:1,dy:0}, right: {dx:1,dy:0} },
+  look_left:  { left: {dx:-1,dy:0}, right: {dx:-1,dy:0} },
+  look_down:  { left: {dx:0,dy:1}, right: {dx:0,dy:1} },
+  blink:      { type: 'hidden' }
+};
+
+
+// Heart sprite (5×4)
+const HEART = [
+  [1,0,1,0,0],
+  [1,1,1,1,0],
+  [0,1,1,1,0],
+  [0,0,1,0,0]
+];
+
+// ─── BACKGROUND ──────────────────────────────────────────────
+
+const STAR_POSITIONS = [
+  {x:4,y:3,type:'dark'},{x:14,y:2,type:'dark'},{x:27,y:1,type:'dark'},
+  {x:31,y:3,type:'mid'},{x:6,y:7,type:'dark'},{x:19,y:5,type:'light'},
+  {x:24,y:6,type:'mid'},{x:9,y:10,type:'dark'},{x:2,y:13,type:'dark'},
+  {x:33,y:8,type:'dark'},{x:29,y:12,type:'dark'},{x:7,y:16,type:'mid'},
+  {x:3,y:20,type:'dark'},{x:30,y:18,type:'mid'},{x:1,y:25,type:'dark'},
+  {x:33,y:24,type:'dark'},{x:5,y:30,type:'light'},{x:28,y:28,type:'mid'},
+  {x:15,y:9,type:'light'},{x:21,y:14,type:'mid'}
+];
+
+function drawBg() {
+  ctx.fillStyle = PALETTE.background.bg;
+  ctx.fillRect(0, 0, cv.width, cv.height);
+  for (let gy = 1; gy < GH; gy += 2) {
+    for (let gx = 1; gx < GW; gx += 2) {
+      ctx.fillStyle = PALETTE.background.dot;
+      ctx.beginPath();
+      ctx.arc(gx * PX + PX/2, gy * PX + PX/2, 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+}
+
+function drawStars(f) {
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  for (const s of STAR_POSITIONS) {
+    const twinkle = Math.sin(f * 0.08 + s.x * 0.5 + s.y * 0.3);
+    let col;
+    if (s.type === 'dark') col = twinkle > 0 ? PALETTE.stars.dark : PALETTE.stars.mid;
+    else if (s.type === 'mid') col = twinkle > 0.3 ? PALETTE.stars.mid : PALETTE.stars.light;
+    else col = twinkle > 0 ? PALETTE.stars.light : PALETTE.background.dot;
+    ctx.fillStyle = col;
+    const size = s.type === 'dark' ? 14 : 10;
+    ctx.font = `bold ${size}px serif`;
+    ctx.fillText('✳', s.x * PX + PX/2, s.y * PX + PX/2);
+  }
+}
+
+// ─── DRAW FUNCTIONS ──────────────────────────────────────────
+
+function drawClawd(ox, oy, opts = {}) {
+  const eyeVariant = opts.eyes || 'forward';
+  const bodyCol = PALETTE.clawd.body;
+  const eyeCol = PALETTE.clawd.eye;
+
+  for (let r = 0; r < CLAWD_BODY.height; r++) {
+    for (let c = 0; c < CLAWD_BODY.width; c++) {
+      if (CLAWD_BODY.data[r][c] === 1) px(ox + c, oy + r, bodyCol);
+    }
+  }
+
+  const ev = EYES[eyeVariant];
+  if (ev && ev.type !== 'hidden') {
+    const el = CLAWD_BODY.anchors.eyeLeft;
+    const er = CLAWD_BODY.anchors.eyeRight;
+    px(ox + el.x + ev.left.dx, oy + el.y + ev.left.dy, eyeCol);
+    px(ox + er.x + ev.right.dx, oy + er.y + ev.right.dy, eyeCol);
+  }
+}
+
+function drawHeart(hx, hy, col) {
+  for (let r = 0; r < HEART.length; r++) {
+    for (let c = 0; c < HEART[r].length; c++) {
+      if (HEART[r][c] === 1) px(hx + c - 1, hy + r, col);
+    }
+  }
+}
+
+function drawBubble(bx, by, text) {
+  const tw = text.length + 2;
+  for (let y = 0; y < 3; y++) {
+    for (let x = 0; x < tw; x++) {
+      const isEdge = (y === 0 || y === 2 || x === 0 || x === tw - 1);
+      if ((y === 0 || y === 2) && (x === 0 || x === tw - 1)) continue;
+      px(bx + x, by + y, isEdge ? PALETTE.stars.mid : PALETTE.ui.white);
+    }
+  }
+  px(bx + 1, by + 3, PALETTE.stars.mid);
+  ctx.fillStyle = PALETTE.stars.dark;
+  ctx.font = 'bold 12px Courier New';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'top';
+  ctx.fillText(text, (bx + 1) * PX + 3, by * PX + 7);
+}
+
+// ─── PARTICLE SYSTEM ─────────────────────────────────────────
+let particles = [];
+
+function addParticle(x, y, col) {
+  particles.push({
+    x, y,
+    vx: (Math.random() - 0.5) * 0.8,
+    vy: -Math.random() * 0.8 - 0.3,
+    life: 1.0,
+    col
+  });
+}
+
+function tickParticles() {
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += 0.04;
+    p.life -= 0.02;
+    if (p.life <= 0) { particles.splice(i, 1); continue; }
+    if (p.life > 0.15) px(Math.round(p.x), Math.round(p.y), p.col);
+  }
+}
+
+// ─── EASING FUNCTIONS ────────────────────────────────────────
+function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+function easeInOut(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3) / 2; }
+function lerp(a, b, t) { return a + (b - a) * t; }
+
+// ─── ANIMATION CONTROLLER ────────────────────────────────────
+const FPS = 30;
+const DUR = 5;  // seconds per loop
+const TOTAL = FPS * DUR;
+
+// === YOUR ANIMATION HERE ===
+// drawBg() / drawStars(f) / drawClawd(x,y,{eyes}) / drawHeart(x,y,col)
+// drawBubble(x,y,text) / addParticle(x,y,col) / tickParticles() / px(gx,gy,col)
+// eyes: forward / look_right / look_left / look_down / blink
+
+function render(f) {
+  const t = f / TOTAL;
+  drawBg();
+  drawStars(f);
+
+  // === DEMO: Clawd standing and blinking ===
+  // Replace this with your animation logic!
+  const blinkFrame = f % 80;
+  const isBlinking = blinkFrame >= 75;
+  const eyeState = isBlinking ? 'blink' : 'forward';
+
+  drawClawd(11, 14, { eyes: eyeState });
+
+  tickParticles();
+}
+
+// ─── LOOP ────────────────────────────────────────────────────
+let startTime = null;
+
+function loop(ts) {
+  if (!startTime) startTime = ts;
+  const elapsed = (ts - startTime) / 1000;
+  const loopT = elapsed % DUR;
+  const frame = Math.floor(loopT * FPS);
+
+  if (loopT < 0.05) particles = [];
+
+  render(frame);
+
+  document.getElementById('info').textContent =
+    `clawd animation - ${loopT.toFixed(1)}s / ${DUR}.0s  |  loop ${Math.floor(elapsed / DUR) + 1}`;
+
+  requestAnimationFrame(loop);
+}
+
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
