@@ -54,11 +54,8 @@ def convert_markdown_to_html(input_file: str, output_file: str = None) -> str:
         input_path = Path(input_file)
         output_file = str(input_path.with_suffix('.html'))
     
-    # 根据转换器选择脚本
-    if converter == 'doocs':
-        script = script_dir / 'markdown_to_wechat_doocs.py'
-    else:
-        script = script_dir / 'markdown_to_wechat_mdnice.py'
+    # 唯一支持的转换器（其它历史版本已废弃删除）
+    script = script_dir / 'markdown_to_wechat_doocs.py'
     
     # 执行转换
     cmd = [

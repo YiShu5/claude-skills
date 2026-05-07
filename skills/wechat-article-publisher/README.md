@@ -1,8 +1,8 @@
-# 意疏AI口袋 · 微信公众号文章管理工具
+# 意疏的AI口袋 · 微信公众号文章管理工具
 
 ## 📝 简介
 
-意疏AI口袋，微信公众号文章创作发布工具链。
+意疏的AI口袋，微信公众号文章创作发布工具链。
 用 AI 让普通人变强，用方法把复杂的事变简单，用行动把人生带到更高的位置。
 
 支持文章创作、提取、转换、排版和发布的全流程自动化。
@@ -154,33 +154,55 @@ Agent 会提取、改写并发布文章。
 
 ## 🔧 工具脚本
 
-### 生成图片
+> 假设根目录有 `.env`（含 `WECHAT_APP_ID` / `WECHAT_APP_SECRET` / `DASHSCOPE_API_KEY` 或 `DOUBAO_API_KEY`）。
+> 不支持 `.env` 的脚本（`upload_material.py` / `publish_draft.py`）需要先把 secret 导成环境变量：
+>
+> ```bash
+> source <(grep -E '^WECHAT_' .env | sed 's/^/export /')
+> ```
+
+### 生成封面图片（支持 .env，免参）
 ```bash
-python3 scripts/generate_cover.py --prompt "描述，2.35:1横屏构图"
+python3 scripts/generate_cover.py --prompt "<五要素 prompt，见 references/image-prompts.md>" --output cover.jpg
 ```
 
-### 上传图片
+### 上传图片到公众号素材（必须显式传 secret）
 ```bash
-python3 scripts/upload_material.py --image_path image.jpg
+python3 scripts/upload_material.py \
+  --app_id "$WECHAT_APP_ID" \
+  --app_secret "$WECHAT_APP_SECRET" \
+  --image_path cover.jpg
+# → 输出 thumb_media_id
 ```
 
-### Markdown 转 HTML
+### Markdown → 内联样式 HTML
 ```bash
 python3 scripts/markdown_to_wechat_doocs.py \
   --input article.md \
   --output article.html \
-  --theme orange
+  --theme orange    # 主题按 THEME_GUIDE.md 选
 ```
 
-### 创建草稿
+### 创建草稿（支持 .env，可省略 app_id/secret）
 ```bash
 python3 scripts/create_draft.py \
   --title "文章标题" \
   --content "$(cat article.html)" \
-  --thumb_media_id "封面ID" \
-  --author "作者名" \
+  --thumb_media_id "THUMB_XXX" \
+  --author "意疏" \
   --digest "摘要"
+# → 输出 media_id
 ```
+
+### 发布草稿（必须显式传 secret）
+```bash
+python3 scripts/publish_draft.py \
+  --app_id "$WECHAT_APP_ID" \
+  --app_secret "$WECHAT_APP_SECRET" \
+  --media_id "MEDIA_XXX"
+```
+
+更多端到端示例参见 [`references/examples.md`](references/examples.md)。
 
 ---
 
@@ -249,7 +271,7 @@ A: 主题会根据文章内容自动选择，无需手动设置
 用方法把复杂的事变简单。
 用行动把人生带到更高的位置。
 
-—— 意疏AI口袋
+—— 意疏的AI口袋
 
 ---
 

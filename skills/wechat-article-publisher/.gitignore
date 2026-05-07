@@ -37,3 +37,6 @@ Thumbs.db
 # 测试文件
 test_*.py
 *_test.py
+
+# 离线语料分析产物（tools/analyze_corpus.py 输出，体积大且为派生数据）
+corpus-analysis/
