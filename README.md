@@ -4,7 +4,7 @@
 
 **意疏的 Claude Code Skills 集合 · 经过实战打磨的能力插件**
 
-[![Skills](https://img.shields.io/badge/Skills-3-CD6E58?style=for-the-badge)](./skills)
+[![Skills](https://img.shields.io/badge/Skills-4-CD6E58?style=for-the-badge)](./skills)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Compatible-6366f1?style=for-the-badge)](https://claude.com/claude-code)
 [![License](https://img.shields.io/badge/License-MIT-f59e0b?style=for-the-badge)](./LICENSE)
 
@@ -31,6 +31,7 @@ Claude Code Skills 的官方生态还在早期，大多数 skill 写得粗糙：
 | [`clawd-animation`](./skills/clawd-animation) | Clawd 像素风动画生成器（4-8s 多阶段叙事） | ✅ |
 | [`clawd-animation-lite`](./skills/clawd-animation-lite) | Clawd 像素动画轻量版（1-3s 单动作，省 token） | ✅ |
 | [`self-improving-agent`](./skills/self-improving-agent) | 会话结束时提取经验教训到 `.learnings/` 暂存区，人工审核后才入长期记忆 | ✅ |
+| [`wechat-article-publisher`](./skills/wechat-article-publisher) | 微信公众号文章自动化全链路：AI 创作 → 智能配图 → 自动排版 → 草稿上传 | ✅ |
 
 ---
 
