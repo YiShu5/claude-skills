@@ -14,3 +14,6 @@ USER/
 SOUL/
 *.env
 *.secret
+
+# User article drafts (skill output, not part of skill itself)
+skills/wechat-article-publisher/drafts/
