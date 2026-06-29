@@ -4,7 +4,7 @@
 
 **通用 Claude Code Skills 集合 · 即插即用的能力插件**
 
-[![Skills](https://img.shields.io/badge/Skills-7-6366f1?style=for-the-badge)](./skills)
+[![Skills](https://img.shields.io/badge/Skills-8-6366f1?style=for-the-badge)](./skills)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Compatible-6366f1?style=for-the-badge)](https://claude.com/claude-code)
 [![License](https://img.shields.io/badge/License-MIT-f59e0b?style=for-the-badge)](./LICENSE)
 
@@ -30,6 +30,7 @@ Claude Code Skills 的官方生态还在早期，大多数 skill 写得粗糙：
 |---|---|---|
 | [`clawd-animation`](./skills/clawd-animation) | Clawd 像素风动画生成器（4-8s 多阶段叙事） | ✅ |
 | [`clawd-animation-lite`](./skills/clawd-animation-lite) | Clawd 像素动画轻量版（1-3s 单动作，省 token） | ✅ |
+| [`HTMLHero.skill`](./skills/HTMLHero.skill) | 先对齐再生成可运行的第一页 Hero 页面 | ✅ |
 | [`HTMLPPT.skill`](./skills/HTMLPPT.skill) | 先对齐再把 Hero 扩成 HTML/PPT 网页演示文稿 | ✅ |
 | [`self-improving-agent`](./skills/self-improving-agent) | 会话结束时提取经验教训到 `.learnings/` 暂存区，人工审核后才入长期记忆 | ✅ |
 | [`wechat-coauthor`](./skills/wechat-coauthor) | 微信公众号 4 步协作写作流（v2），AI 协助而非代替，voice 必须来自作者 | ✅ |
