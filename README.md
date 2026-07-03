@@ -2,7 +2,7 @@
 
 # 🧩 Claude Skills
 
-**通用 Claude Code Skills 集合 · 即插即用的能力插件**
+**按场景整理的 Claude Code Skills：HTML 首页/演示、公众号工作流、动画生成、PRD 整理与经验记忆**
 
 [![Skills](https://img.shields.io/badge/Skills-9-6366f1?style=for-the-badge)](./skills)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Compatible-6366f1?style=for-the-badge)](https://claude.com/claude-code)
@@ -14,13 +14,15 @@
 
 ## 🤔 Why this?
 
-Claude Code Skills 的官方生态还在早期，大多数 skill 写得粗糙：description 含糊触发不到、references 一股脑全读浪费 token、规则靠软建议被模型自由发挥。
+这个仓库不是大而全的插件市场，而是一组已经在真实工作流里反复打磨过的 Claude Code Skills。它们面向具体任务：做一个可运行的 HTML Hero、把 Hero 扩成 HTML/PPT 演示、生成 Clawd 动画、整理 Vibe Coding PRD、协作写公众号并完成排版发布。
 
-这个仓库收录**经过反复使用验证、可即插即用**的 skills，遵循三个原则：
+每个 skill 都尽量回答清楚三件事：**什么时候触发、应该怎么做、做到什么程度才算完成**。
 
-1. **description 是触发器，不是介绍** — 把隐性意图、口语化说法、中英文同义词都写进去
-2. **主动管理 token 预算** — 提供 lite/full 双版本，references 标注"何时读 / 何时跳过"
-3. **规则写成"不可违反"而不是建议** — 减少模型自由发挥导致的不一致
+这个仓库收录的 skills 遵循三个原则：
+
+1. **按真实场景归类** — 首页只保留清晰入口，同类能力放在一起
+2. **description 是触发器，不是介绍** — 把隐性意图、口语化说法、中英文同义词都写进去
+3. **规则要能落到交付** — 明确执行流程、确认节点、验证方式和最终产物
 
 ---
 
