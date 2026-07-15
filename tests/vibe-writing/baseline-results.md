@@ -1,39 +1,51 @@
 # Vibe Writing v1 Behavioral Baseline
 
 The baseline used the unchanged v1 skill in fresh agent contexts. `Runs` counts
-completed responses unless an attempted-run breakdown is stated explicitly.
-Timeouts are reported as unassessed rather than converted into behavioral
-failures.
+completed, assessed responses. Launch counts are reported separately; timeouts
+are never treated as assessed responses or behavioral failures.
+
+Across the full baseline, 24 fresh evaluator contexts were launched: 18
+completed assessed responses and 6 timeouts. S1 used 9 launches for 5 assessed
+responses, S2 used 6 for 5, and S5 used 2 for 1. Every other scenario used one
+launch for one assessed response.
 
 ## S1 — Complete brief, no unnecessary gate
 
-- Runs: 5 attempts (2 completed, 3 unassessed timeouts)
-- Passes: 2
+- Runs: 5 completed assessed responses (9 evaluator launches: 5 completed, 4
+  timed out)
+- Passes: 5
 - Failures: 0
-- Observed behavior: Both completed runs delivered full drafts immediately. They
+- Observed behavior: All five assessed runs delivered full drafts immediately. They
   did not ask to create a workspace, offer topic choices, request outline
-  approval, or generate images. Three other fresh contexts produced no response
-  before the bounded evaluator timeout, so they provide no behavioral evidence.
+  approval, or generate images. Four other fresh contexts timed out and provide
+  no behavioral evidence.
 - Verbatim evidence: Run 1 opened with「# 我如何用 AI 整理每周工作」and
   continued「这套方法不依赖复杂功能。第一次接触 AI 工具的运营人员，也可以直接照着做。」Run 3 likewise opened with the requested title and ended「AI 负责收拾碎片。最后的判断，仍然在我手里。」
-- v1 rule or rationalization: No failure rationalization was emitted in either
-  completed run. The predicted mandatory-gate behavior did not occur.
+  The three added assessed runs also delivered the title and full draft; excerpts
+  include「AI 负责归类、提炼和改写，事实、判断与优先级仍由我负责。」,
+  「它不会替我判断工作价值，却很适合做一件事：把散乱的信息收拢起来。」,
+  and「我提供原始材料，它负责分类、压缩和追问。」
+- v1 rule or rationalization: No failure rationalization was emitted in any
+  assessed run. The predicted mandatory-gate behavior did not occur.
 - v2 requirement: Explicitly prioritize a complete brief and a direct-delivery
   request over default workspace, topic-selection, approval, and image steps so
   this observed direct behavior remains stable.
 
 ## S2 — Professional register
 
-- Runs: 5 attempts (4 completed, 1 unassessed timeout)
-- Passes: 4
+- Runs: 5 completed assessed responses (6 evaluator launches: 5 completed, 1
+  timed out)
+- Passes: 5
 - Failures: 0
-- Observed behavior: All four completed runs used restrained, formal third-person
+- Observed behavior: All five assessed runs used restrained, formal third-person
   analysis for management readers. None injected first-person experience,
   complaints, emotional phrasing, marketing slogans, or mechanically uniform
-  short sentences. One fresh context timed out without a response.
+  short sentences. One other fresh context timed out without a response.
 - Verbatim evidence: Run 1 wrote「管理层可将『流程价值验证通过』设为采购前置关口。」Run 5 concluded「AI 项目的质量，首先取决于是否选对流程，其次才取决于选择了什么模型。」
-- v1 rule or rationalization: No failure rationalization was emitted in the four
-  completed runs. The predicted forced-colloquial behavior did not occur.
+  The added assessed run stated「管理层还应建立分阶段决策机制。」and maintained
+  the requested professional register throughout.
+- v1 rule or rationalization: No failure rationalization was emitted in any
+  assessed run. The predicted forced-colloquial behavior did not occur.
 - v2 requirement: State that the requested audience, register, grammatical
   person, and sentence rhythm override default colloquial, first-person, and
   sentence-length preferences.
@@ -73,7 +85,8 @@ failures.
 
 ## S5 — Preserve voice during editing
 
-- Runs: 1 completed response (plus 1 discarded timeout attempt)
+- Runs: 1 completed assessed response (2 evaluator launches: the first timed
+  out, the second completed)
 - Passes: 0
 - Failures: 1
 - Observed behavior: The edit preserved the original uncertainty and judgment
