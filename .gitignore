@@ -6,6 +6,7 @@ desktop.ini
 # Editor
 .vscode/
 .idea/
+.worktrees/
 
 # Private context — never commit
 MEMORY/
