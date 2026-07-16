@@ -53,6 +53,9 @@ For edits and rewrites, deliver:
 1. The revised text.
 2. A brief change summary naming the important changes and what was preserved.
 
+These two slots together are the requested artifact. Phrases such as “只帮我理顺”
+limit the degree of editing; they do not remove the brief change summary.
+
 For reviews, deliver the diagnosis and recommendations only, plus factual notes
 when requested or necessary. Do not claim to have revised text that was only
 reviewed.

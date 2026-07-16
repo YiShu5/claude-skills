@@ -20,6 +20,15 @@ Require author confirmation before using first-person experience, identity,
 private project details, or achievements. A prior draft or memory may reveal a
 candidate claim, but it does not supply that confirmation.
 
+For a requested first-person story containing any such claim, use this gate:
+
+1. Look for explicit factual confirmation separate from the writing premise.
+2. Treat the premise itself, including wording such as “写我……”, as unconfirmed.
+3. When confirmation is absent, stop and return exactly one focused question
+   asking whether the claim is true and may be used. Draft only after a yes.
+
+If the claim can be omitted, remove it instead of presenting it as autobiography.
+
 Research current authoritative sources for products, versions, prices, policies,
 news, and statistics. Prefer official or primary sources, then credible
 professional sources. Use community material to describe reported opinions or
