@@ -33,7 +33,7 @@
 | HTML 首页 / 演示 | [`HTMLHero.skill`](./skills/HTMLHero.skill)<br>[`HTMLPPT.skill`](./skills/HTMLPPT.skill) | 生成第一页 Hero，并扩展成一套 HTML/PPT 演示文稿 | ✅ |
 | Clawd 动画 | [`clawd-animation`](./skills/clawd-animation)<br>[`clawd-animation-lite`](./skills/clawd-animation-lite) | 像素风动画生成器，包含完整版和轻量版 | ✅ |
 | 经验记忆 | [`self-improving-agent`](./skills/self-improving-agent) | 会话结束时提取经验教训到 `.learnings/` 暂存区，人工审核后才入长期记忆 | ✅ |
-| Vibe 创作 | [`vibe-coding-prd`](./skills/vibe-coding-prd)<br>[`vibe-writing`](./skills/vibe-writing) | 整理可执行 PRD，创建/审校中文长文并降低 AI 味 | ✅ |
+| Vibe 创作 | [`vibe-coding-prd`](./skills/vibe-coding-prd)<br>[`vibe-writing`](./skills/vibe-writing) | 整理可执行 PRD，并创建、改写或审校保留作者声音的中文内容 | ✅ |
 | 公众号工作流 | [`wechat-coauthor`](./skills/wechat-coauthor)<br>[`wechat-formatter`](./skills/wechat-formatter)<br>[`wechat-publisher`](./skills/wechat-publisher) | 写作协作、微信排版、封面素材上传、草稿创建与发布 | ✅ |
 
 ---
