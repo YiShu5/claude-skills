@@ -5,32 +5,44 @@ GPT-5.4 contexts. Every count below maps to a run row and raw final-output file
 in [`runs/final-2026-07-16-v2/manifest.md`](runs/final-2026-07-16-v2/manifest.md).
 Historical observations without retained transcripts are not counted.
 
-Final evidence accounting: 15 launches, 15 completed, 0 timeouts, 0
-pre-response errors, 15 passes, and 0 behavioral failures. Acceptance criteria
-were kept outside evaluator prompts.
+Final evidence accounting: 24 launches, 24 completed, 0 timeouts, 0
+pre-response errors, 23 passes, 0 behavioral failures, and 1 completed S4 run
+whose final output was retained without a research trace and is therefore
+evidence-incomplete rather than a pass. Acceptance criteria were kept outside
+evaluator prompts.
 
 ## S1 — Complete brief, no unnecessary gate
 
-- Runs: 1 completed assessed response
-- Passes: 1
+- Runs: 5 completed assessed responses
+- Passes: 5
 - Failures: 0
-- Observed behavior: Delivered the complete requested draft directly without a
-  workspace, topic-choice, outline-approval, or image gate.
+- Observed behavior: All five delivered the complete requested draft directly
+  without a workspace, topic-choice, outline-approval, or image gate. Wording
+  and organization varied, but the direct-delivery shape converged.
 - Verbatim evidence: Opened「# 我如何用 AI 整理每周工作」and moved directly
   into the draft:「AI 不是来替你上班的，它更像一个整理能力很强、耐心也很够的助理。」
-- Run evidence: [`s1-r1`](runs/final-2026-07-16-v2/s1-r1.txt).
+- Run evidence: [`s1-r1`](runs/final-2026-07-16-v2/s1-r1.txt),
+  [`s1-r2`](runs/final-2026-07-16-v2/s1-r2.txt),
+  [`s1-r3`](runs/final-2026-07-16-v2/s1-r3.txt),
+  [`s1-r4`](runs/final-2026-07-16-v2/s1-r4.txt), and
+  [`s1-r5`](runs/final-2026-07-16-v2/s1-r5.txt).
 - Refinement: None in the final sweep.
 
 ## S2 — Professional register
 
-- Runs: 1 completed assessed response
-- Passes: 1
+- Runs: 5 completed assessed responses
+- Passes: 5
 - Failures: 0
-- Observed behavior: Used restrained formal management analysis without first
-  person, complaints, emotional language, slogans, or a uniform-short-sentence
-  rule.
+- Observed behavior: All five used restrained formal management analysis
+  without first person, complaints, emotional language, slogans, or a
+  uniform-short-sentence rule. Paragraph structure and supporting criteria
+  varied while the requested professional register converged.
 - Verbatim evidence:「模型只是技术组件，流程价值才是商业成立的基础。」
-- Run evidence: [`s2-r1`](runs/final-2026-07-16-v2/s2-r1.txt).
+- Run evidence: [`s2-r1`](runs/final-2026-07-16-v2/s2-r1.txt),
+  [`s2-r2`](runs/final-2026-07-16-v2/s2-r2.txt),
+  [`s2-r3`](runs/final-2026-07-16-v2/s2-r3.txt),
+  [`s2-r4`](runs/final-2026-07-16-v2/s2-r4.txt), and
+  [`s2-r5`](runs/final-2026-07-16-v2/s2-r5.txt).
 - Refinement: None in the final sweep.
 
 ## S3 — Unconfirmed first-person experience
@@ -56,16 +68,24 @@ were kept outside evaluator prompts.
 
 ## S4 — Time-sensitive external fact
 
-- Runs: 1 completed assessed response
+- Runs: 2 completed responses; 1 trace-backed assessed response and 1
+  evidence-incomplete response
 - Passes: 1
 - Failures: 0
-- Observed behavior: Dated current claims, described current memory functions
-  and availability boundaries, and cited current official OpenAI sources.
-- Verbatim evidence: Opened「截至 2026 年 7 月 16 日」and distinguished
-  `Saved Memories` from `Reference Chat History` before discussing plan and
-  organization availability.
-- Run evidence: [`s4-r1`](runs/final-2026-07-16-v2/s4-r1.txt), including the
-  official Memory FAQ, saved-memory documentation, and OpenAI product page URLs.
+- Observed behavior: The trace-backed run explicitly dated its verification to
+  2026-07-16, limited factual research to OpenAI official sources, executed
+  official-domain searches and a direct Memory FAQ URL lookup, then cited the
+  official FAQ in the final output. The earlier final-output-only run is
+  disclosed but no longer used to prove research behavior.
+- Verbatim evidence: Before research, the evaluator said it would use「OpenAI
+  官方文档核对 2026-07-16 这一天仍然成立的记忆功能描述」; the trace then
+  records official-domain `web_search` actions and a direct lookup of
+  `https://help.openai.com/en/articles/8590148-memory-faq`.
+- Run evidence: trace-backed [`s4-r2`](runs/final-2026-07-16-v2/s4-r2.txt)
+  with its sanitized actual-tool-call
+  [`JSONL trace`](runs/final-2026-07-16-v2/s4-r2.trace.jsonl). The retained
+  [`s4-r1`](runs/final-2026-07-16-v2/s4-r1.txt) is marked
+  `evidence-incomplete` in the manifest because it has no source-access trace.
 - Refinement: None in the final sweep.
 
 ## S5 — Preserve voice during editing
@@ -166,5 +186,10 @@ were kept outside evaluator prompts.
   timeout/error but failed S8. Its outputs and manifest are retained under
   [`runs/final-2026-07-16/`](runs/final-2026-07-16/), and none are included in
   final pass totals.
-- The final post-refactor evidence set completed 15/15 runs with no timeout or
-  process error and passed every recorded acceptance condition.
+- The repaired final evidence set completed 24/24 launches with no timeout or
+  process error. It contains 23 traceable passes, 0 behavioral failures, and 1
+  completed but evidence-incomplete S4 output that is excluded from pass counts.
+- The complete skill digest now covers all seven runtime files in deterministic
+  order. Because only the digest algorithm expanded and skill content did not
+  change, scenarios other than the targeted S1, S2, and S4 evidence repairs did
+  not require rerunning.
