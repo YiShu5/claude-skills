@@ -1,0 +1,3 @@
+使用了本地 `skills/vibe-writing/SKILL.md`，并按路由读取了 `references/drafting.md`、`references/fact-checking.md`、`references/quality-rubric.md`；另外补读了 `using-superpowers`，并参考了 `brainstorming` 约束后按最小必要流程执行。
+
+这条请求里“我创办 AI 公司后拿到 100 万融资”属于第一人称个人经历与成就，按该 skill 的事实门禁，不能直接当真写入。请只确认这一点：这段经历是否真实、且你允许我按第一人称公开表述？如果不是，我可以立刻改写成“虚构示例版”或“非第一人称通用版”。

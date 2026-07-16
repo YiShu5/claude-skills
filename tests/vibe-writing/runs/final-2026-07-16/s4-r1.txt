@@ -1,0 +1,17 @@
+截至 **2026 年 7 月 16 日**，ChatGPT 的“记忆”功能已经不只是早期那种“你手动说一句，帮我记住这个偏好”的单点记忆了。现在它更像一套分层的个性化机制：一层是你明确要求保存的 **Saved memories（已保存记忆）**，比如饮食偏好、写作习惯、常用身份信息；另一层是 **Reference chat history（引用聊天历史）**，也就是系统会从你过去的对话里提取有用上下文，在后续聊天里自动参考。对用户来说，最直接的变化是，ChatGPT 不再只是“记住一句话”，而是更擅长持续理解你的偏好、目标和正在推进的事情。
+
+从现在可用的能力来看，记忆功能主要包括几类。第一类是 **保存明确记忆**：你可以直接告诉 ChatGPT “记住我吃素”“以后给我推荐书时优先中文资料”，它会把这些信息放进可管理的记忆里，后续长期参考。第二类是 **参考历史聊天**：如果你打开了这项设置，ChatGPT 会从过往聊天中提取对未来有帮助的信息，不需要你每次都重复背景。第三类是 **自动更新与整理记忆**：新版记忆会减少过时、重复或互相矛盾的信息，尽量让上下文保持新鲜。第四类是 **Memory summary（记忆摘要）** 和 **Sources（来源）**：你现在可以查看系统可能用于个性化回答的记忆摘要，还能在部分场景下看到某次个性化回答参考了哪些来源，例如来自记忆、过去聊天还是自定义指令。第五类是 **可编辑、可纠正、可关闭**：你可以删除单条记忆、清空记忆、关闭记忆，或者直接在摘要里改正系统记错的内容。第六类是 **Temporary Chat（临时聊天）**：这种聊天不会创建新记忆，也不会调用已有记忆，适合你想临时聊敏感话题、测试问题，或者单纯不想被系统“长期记住”的场景。
+
+它的适用范围，当前要分计划、地区和使用场景来看。对于 **Free 用户**，公开说明里仍强调主要可用的是 **Saved memories**，也就是“保存记忆”这层；更强的“引用聊天历史”和新版增强记忆，早前先面向 Plus 和 Pro 推出，之后再逐步扩展。对于 **Plus 和 Pro 用户**，增强记忆是目前最完整的版本，包含保存记忆、引用聊天历史、记忆自动更新，以及新的记忆摘要能力。不过这类功能并不是所有国家同时一步到位，而是分批 rollout。对于 **Business、Enterprise 和 Edu**，2026 年 6 月底也已经开始上线改进后的记忆能力，重点是让系统能结合过去聊天持续更新上下文，同时提供记忆摘要和来源查看，但是否启用还会受到工作区管理员设置影响。
+
+如果把场景再细分一下，记忆功能最适合的其实是三类任务。第一类是 **持续性的个人协作**，比如长期写作、健身规划、学习路线、职业咨询，这些任务需要模型不断记住你的偏好和进度。第二类是 **重复型工作流**，比如你总是希望它用某种格式输出、默认考虑某些限制条件、遵循特定语气。第三类是 **项目型对话**，尤其是 ChatGPT 里的 Projects。这里还有一个很重要的边界：**project-only memory（仅项目记忆）** 会把上下文限制在同一个项目内，项目外的聊天不会被引用，项目内聊天也不会把信息带到别处。这对长期但敏感的工作很有用，比如某个客户项目、某份内部文稿、某个研究主题。
+
+所以，今天再看 ChatGPT 的记忆功能，它已经不是“顺手存个偏好”的附属能力，而是在往“长期协作上下文系统”演化。它适合拿来减少重复说明、提升连续性和个性化，但同时也保留了比较清晰的控制开关：你可以开、可以关、可以纠正、可以局部隔离，必要时还能用临时聊天完全绕开记忆。对普通用户来说，最实用的判断标准很简单：如果你希望 ChatGPT 越用越懂你，开记忆是有价值的；如果你在做临时、敏感、边界很强的任务，就用项目记忆或临时聊天，把上下文关在该关的地方。
+
+参考：
+- OpenAI Help: [Memory FAQ](https://help.openai.com/en/articles/8590148-memory-faq)
+- OpenAI Help: [How does “Reference saved memories” work?](https://help.openai.com/en/articles/11146739-how-does-reference-saved-memories-work)
+- OpenAI Help: [ChatGPT Release Notes](https://help.openai.com/en/articles/6825453-chatgpt-release-notes)
+- OpenAI Help: [Projects in ChatGPT](https://help.openai.com/en/articles/10169521-projects-in-chatgpt)
+- OpenAI Help: [ChatGPT Business Release Notes](https://help.openai.com/en/articles/11391654-chatgpt-business-release-notes)
+- OpenAI Help: [ChatGPT Enterprise & Edu Release Notes](https://help.openai.com/en/articles/10128477-chatgpt-enterprise-edu-release-notes)

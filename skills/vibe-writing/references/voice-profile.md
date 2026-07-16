@@ -39,6 +39,15 @@ Keep conversational voice separate from formal writing voice. Chat phrasing,
 casual jokes, and assistant-written text may suggest candidates but do not prove
 how the author writes an article, analysis, or technical document.
 
+When memory-derived material is the only evidence and the task asks for formal
+writing mechanics such as punctuation or sentence rhythm, the response must:
+
+1. Label those mechanics low-confidence or unknown.
+2. Use a neutral formal default only as interim guidance.
+3. Recommend 2–5 real authored samples before assigning concrete voice rules.
+
+Do not offer to turn the memory dossier alone into specific formal-writing rules.
+
 ## Observable Dimensions
 
 Describe only observable, usable tendencies:
