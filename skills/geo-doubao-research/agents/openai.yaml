@@ -1,0 +1,4 @@
+interface:
+  display_name: "豆包 GEO 研究"
+  short_description: "用豆包检验GEO效果并反推竞品信源"
+  default_prompt: "Use $geo-doubao-research to run a Doubao pre/post GEO diagnosis and competitor source review."
