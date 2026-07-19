@@ -1,0 +1,4 @@
+interface:
+  display_name: "GEO 平台改写"
+  short_description: "把一篇主稿改成多平台发布版本"
+  default_prompt: "Use $geo-platform-adapter to adapt one GEO draft for Toutiao, Sohu, Zhihu, and 36Kr."

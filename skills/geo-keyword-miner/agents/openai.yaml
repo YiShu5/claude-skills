@@ -1,0 +1,4 @@
+interface:
+  display_name: "GEO 关键词挖掘"
+  short_description: "从公司家底表生成可写文章的商业关键词"
+  default_prompt: "Use $geo-keyword-miner to turn a company profile into a prioritized GEO keyword table."

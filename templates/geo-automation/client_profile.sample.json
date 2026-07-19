@@ -1,0 +1,19 @@
+{
+  "client_id": "demo-001",
+  "brand_name": "某某AI产品学院",
+  "brand_short": "某某学院",
+  "industry": "教育培训",
+  "business_type": "本地B2C",
+  "primary_city": "郑州",
+  "service_area": ["郑州金水区", "郑州高新区"],
+  "core_services": ["AI产品经理线下课", "企业AI内训", "AI项目作品集辅导"],
+  "target_customers": ["想转岗AI产品经理的运营人员", "企业数字化培训负责人"],
+  "eeat": {
+    "expertise": ["课程由一线AI产品经理参与设计"],
+    "experience": ["累计服务学员3000+，以客户提供资料为准"],
+    "authority": ["待补充可核查认证或媒体报道"],
+    "trust": ["待补充第三方平台评价或学员反馈截图"]
+  },
+  "competitors": ["竞品机构A", "竞品机构B"],
+  "business_desc": "面向想转岗AI产品经理的职场人，提供线下小班课程、企业内训和真实项目作品集辅导。"
+}

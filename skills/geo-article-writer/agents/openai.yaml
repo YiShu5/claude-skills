@@ -1,0 +1,4 @@
+interface:
+  display_name: "GEO 文章写稿"
+  short_description: "按关键词和证据生成可溯源文章初稿"
+  default_prompt: "Use $geo-article-writer to draft a sourced GEO article from a profile, keyword, and article type."

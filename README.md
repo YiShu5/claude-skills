@@ -2,9 +2,9 @@
 
 # 🧩 Claude Skills
 
-**按场景整理的 Claude Code Skills：HTML 首页/演示、公众号工作流、动画生成、PRD 整理、中文写作与经验记忆**
+**按场景整理的 Claude Code Skills：HTML 首页/演示、公众号工作流、GEO 自动化、动画生成、PRD 整理、中文写作与经验记忆**
 
-[![Skills](https://img.shields.io/badge/Skills-10-6366f1?style=for-the-badge)](./skills)
+[![Skills](https://img.shields.io/badge/Skills-15-6366f1?style=for-the-badge)](./skills)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Compatible-6366f1?style=for-the-badge)](https://claude.com/claude-code)
 [![License](https://img.shields.io/badge/License-MIT-f59e0b?style=for-the-badge)](./LICENSE)
 
@@ -14,7 +14,7 @@
 
 ## 🤔 Why this?
 
-这个仓库不是大而全的插件市场，而是一组已经在真实工作流里反复打磨过的 Claude Code Skills。它们面向具体任务：做一个可运行的 HTML Hero、把 Hero 扩成 HTML/PPT 演示、生成 Clawd 动画、整理 Vibe Coding PRD、写中文长文并审校降 AI 味、协作写公众号并完成排版发布。
+这个仓库不是大而全的插件市场，而是一组已经在真实工作流里反复打磨过的 Claude Code Skills。它们面向具体任务：做一个可运行的 HTML Hero、把 Hero 扩成 HTML/PPT 演示、生成 Clawd 动画、整理 Vibe Coding PRD、做 GEO 内容自动化、写中文长文并审校降 AI 味、协作写公众号并完成排版发布。
 
 每个 skill 都尽量回答清楚三件事：**什么时候触发、应该怎么做、做到什么程度才算完成**。
 
@@ -34,6 +34,7 @@
 | Clawd 动画 | [`clawd-animation`](./skills/clawd-animation)<br>[`clawd-animation-lite`](./skills/clawd-animation-lite) | 像素风动画生成器，包含完整版和轻量版 | ✅ |
 | 经验记忆 | [`self-improving-agent`](./skills/self-improving-agent) | 会话结束时提取经验教训到 `.learnings/` 暂存区，人工审核后才入长期记忆 | ✅ |
 | Vibe 创作 | [`vibe-coding-prd`](./skills/vibe-coding-prd)<br>[`vibe-writing`](./skills/vibe-writing) | 整理可执行 PRD，并创建、改写或审校保留作者声音的中文内容 | ✅ |
+| GEO 自动化 | [`doubao-geo-publisher`](./skills/doubao-geo-publisher)<br>[`geo-keyword-miner`](./skills/geo-keyword-miner)<br>[`geo-article-writer`](./skills/geo-article-writer)<br>[`geo-platform-adapter`](./skills/geo-platform-adapter)<br>[`geo-doubao-research`](./skills/geo-doubao-research) | 豆包 GEO 诊断、关键词挖掘、文章生成、平台改写、发布后监测与复盘 | ✅ |
 | 公众号工作流 | [`wechat-coauthor`](./skills/wechat-coauthor)<br>[`wechat-formatter`](./skills/wechat-formatter)<br>[`wechat-publisher`](./skills/wechat-publisher) | 写作协作、微信排版、封面素材上传、草稿创建与发布 | ✅ |
 
 ---

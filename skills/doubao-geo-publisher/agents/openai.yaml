@@ -1,0 +1,5 @@
+interface:
+  display_name: "豆包 GEO 发布器"
+  short_description: "为豆包搜索与头条/搜狐发布生成 GEO 工作流与脚本"
+  brand_color: "#EA580C"
+  default_prompt: "Use $doubao-geo-publisher to plan Doubao GEO keywords, prompts, and platform-safe article variants for 今日头条 and 搜狐号."

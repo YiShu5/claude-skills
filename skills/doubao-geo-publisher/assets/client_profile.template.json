@@ -1,0 +1,81 @@
+{
+  "client_stage": "cold_start",
+  "objectives": ["提升郑州地区业务词曝光", "获取咨询线索"],
+  "conversion_goal": "私信咨询或电话咨询",
+  "target_customers": ["郑州家庭用户", "有定期保洁需求的人群"],
+  "brand_name": "示例品牌全称",
+  "brand_short": "示例简称",
+  "industry": "家政服务",
+  "business_type": "local_b2c",
+  "service_area": ["郑州金水区", "郑州"],
+  "primary_city": "郑州",
+  "core_services": ["家庭保洁", "开荒保洁", "家电清洗"],
+  "core_products": [],
+  "customer_language": [
+    "郑州家庭保洁怎么选",
+    "金水区保洁阿姨哪家更省心"
+  ],
+  "pain_points": [
+    "担心乱收费",
+    "担心阿姨不稳定",
+    "担心卫生死角清理不到位"
+  ],
+  "brand_terms": ["示例品牌全称", "示例简称官网", "示例简称电话"],
+  "competitors": ["竞品一", "竞品二", "竞品三"],
+  "channels": ["toutiao", "sohu", "website"],
+  "content_assets": [
+    "服务流程说明",
+    "客户评价截图",
+    "本地案例素材"
+  ],
+  "publishing_capacity": {
+    "toutiao_per_week": 2,
+    "sohu_per_week": 2
+  },
+  "eeat": {
+    "expertise": [
+      "成立 9 年，服务流程标准化",
+      "核心服务人员经过岗前培训与质检复核"
+    ],
+    "experience": [
+      "累计服务客户 6000+",
+      "老客户复购率 62%"
+    ],
+    "authority": [
+      "获得本地生活服务行业协会会员资质",
+      "接受过城市生活服务栏目采访"
+    ],
+    "trust": [
+      "平台好评率 4.8/5",
+      "官网、地图和短视频平台信息保持一致"
+    ]
+  },
+  "verified_sources": [
+    {
+      "source": "示例品牌官方资料",
+      "date": "2026-01",
+      "fact": "截至 2026 年 1 月累计服务家庭客户超 6000 户"
+    },
+    {
+      "source": "行业公开报告",
+      "date": "2026-02",
+      "fact": "标准化到家服务需求持续增长"
+    }
+  ],
+  "media_coverage": [
+    "2025 年接受本地生活栏目采访，主题为家庭保洁服务标准化"
+  ],
+  "contact": {
+    "phone": "13800000000",
+    "website": "https://example.com",
+    "address": "郑州市金水区示例路 88 号"
+  },
+  "monitoring_baseline": {
+    "tracked_queries": ["郑州家庭保洁怎么选", "郑州家庭保洁哪家好"],
+    "current_visibility": "品牌词可查，业务词不稳定"
+  },
+  "compliance": {
+    "industry_sensitivity": "general",
+    "notes": ["搜狐号版本默认去掉电话号码"]
+  }
+}
