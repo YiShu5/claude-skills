@@ -2,9 +2,9 @@
 
 # 🧩 Claude Skills
 
-**按场景整理的 Claude Code Skills：HTML 首页/演示、公众号工作流、动画生成、PRD 整理、中文写作与经验记忆**
+**按场景整理的 Claude Code Skills：HTML 首页/演示、AIPM、公众号工作流、动画生成、PRD 整理、中文写作与经验记忆**
 
-[![Skills](https://img.shields.io/badge/Skills-10-6366f1?style=for-the-badge)](./skills)
+[![Skills](https://img.shields.io/badge/Skills-11-6366f1?style=for-the-badge)](./skills)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Compatible-6366f1?style=for-the-badge)](https://claude.com/claude-code)
 [![License](https://img.shields.io/badge/License-MIT-f59e0b?style=for-the-badge)](./LICENSE)
 
@@ -14,7 +14,7 @@
 
 ## 🤔 Why this?
 
-这个仓库不是大而全的插件市场，而是一组已经在真实工作流里反复打磨过的 Claude Code Skills。它们面向具体任务：做一个可运行的 HTML Hero、把 Hero 扩成 HTML/PPT 演示、生成 Clawd 动画、整理 Vibe Coding PRD、写中文长文并审校降 AI 味、协作写公众号并完成排版发布。
+这个仓库不是大而全的插件市场，而是一组已经在真实工作流里反复打磨过的 Claude Code Skills。它们面向具体任务：做一个可运行的 HTML Hero、把 Hero 扩成 HTML/PPT 演示、生成 Clawd 动画、整理面向团队评审的正式 PRD 或 Vibe Coding PRD、写中文长文并审校降 AI 味、协作写公众号并完成排版发布。
 
 每个 skill 都尽量回答清楚三件事：**什么时候触发、应该怎么做、做到什么程度才算完成**。
 
@@ -33,7 +33,8 @@
 | HTML 首页 / 演示 | [`HTMLHero.skill`](./skills/HTMLHero.skill)<br>[`HTMLPPT.skill`](./skills/HTMLPPT.skill) | 生成第一页 Hero，并扩展成一套 HTML/PPT 演示文稿 | ✅ |
 | Clawd 动画 | [`clawd-animation`](./skills/clawd-animation)<br>[`clawd-animation-lite`](./skills/clawd-animation-lite) | 像素风动画生成器，包含完整版和轻量版 | ✅ |
 | 经验记忆 | [`self-improving-agent`](./skills/self-improving-agent) | 会话结束时提取经验教训到 `.learnings/` 暂存区，人工审核后才入长期记忆 | ✅ |
-| Vibe 创作 | [`vibe-coding-prd`](./skills/vibe-coding-prd)<br>[`vibe-writing`](./skills/vibe-writing) | 整理可执行 PRD，并创建、改写或审校保留作者声音的中文内容 | ✅ |
+| AIPM | [`rule-prd-generator`](./skills/AIPM/rule-prd-generator) | 把业务材料整理成供业务、产品、设计、研发和测试共同评审的正式 PRD | ✅ |
+| Vibe 创作 | [`vibe-coding-prd`](./skills/vibe-coding-prd)<br>[`vibe-writing`](./skills/vibe-writing) | 整理供编码 Agent 执行的 PRD，并创建、改写或审校保留作者声音的中文内容 | ✅ |
 | 公众号工作流 | [`wechat-coauthor`](./skills/wechat-coauthor)<br>[`wechat-formatter`](./skills/wechat-formatter)<br>[`wechat-publisher`](./skills/wechat-publisher) | 写作协作、微信排版、封面素材上传、草稿创建与发布 | ✅ |
 
 ---

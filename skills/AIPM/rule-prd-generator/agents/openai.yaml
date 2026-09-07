@@ -1,0 +1,4 @@
+interface:
+  display_name: "规则 PRD生成"
+  short_description: "把业务材料整理成可评审、可落地、写给人的正式 PRD"
+  default_prompt: "使用 $rule-prd-generator 把这份业务需求整理成一份面向跨职能团队评审的正式 PRD。"
