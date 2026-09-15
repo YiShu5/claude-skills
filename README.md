@@ -1,65 +1,99 @@
 <div align="center">
 
-# 🧩 Claude Skills
+# 🧩 AI Agent Skills
 
-**按场景整理的 Claude Code Skills：HTML 首页/演示、AIPM、公众号工作流、动画生成、PRD 整理、中文写作与经验记忆**
+**面向 AI Agent 的可复用工作流：页面与演示、内容生产、会议与日报、公众号，以及经验沉淀。**
 
-[![Skills](https://img.shields.io/badge/Skills-10-6366f1?style=for-the-badge)](./skills)
-[![Claude Code](https://img.shields.io/badge/Claude_Code-Compatible-6366f1?style=for-the-badge)](https://claude.com/claude-code)
+[![Skills](https://img.shields.io/badge/Skills-12-6366f1?style=for-the-badge)](./skills)
+[![Format](https://img.shields.io/badge/Format-SKILL.md-0ea5e9?style=for-the-badge)](./skills)
 [![License](https://img.shields.io/badge/License-MIT-f59e0b?style=for-the-badge)](./LICENSE)
 
 </div>
 
 ---
 
-## 🤔 Why this?
+## 这是什么
 
-这个仓库不是大而全的插件市场，而是一组已经在真实工作流里反复打磨过的 Claude Code Skills。它们面向具体任务：做一个可运行的 HTML Hero、把 Hero 扩成 HTML/PPT 演示、生成 Clawd 动画、整理面向团队评审的正式 PRD 或 Vibe Coding PRD、写中文长文并审校降 AI 味、协作写公众号并完成排版发布。
+这里是一组按真实任务整理的 **Skill**。每个 Skill 都是一个独立文件夹，以 `SKILL.md` 作为入口，写明触发场景、执行步骤、输入输出和验收标准；需要时还会附带 `references/`、`templates/` 或 `scripts/`。
 
-每个 skill 都尽量回答清楚三件事：**什么时候触发、应该怎么做、做到什么程度才算完成**。
+Skill 遵循通用的 Markdown 约定，不绑定某一个模型或客户端。只要你的 Agent 支持读取本地 Skill 指令，就可以接入 Claude Code、Codex、DeepSeek、Harness 或其他兼容工具。具体的目录名称和加载方式以对应工具的文档为准。
 
-这个仓库收录的 skills 遵循三个原则：
+## 技能目录
 
-1. **按真实场景归类** — 首页只保留清晰入口，同类能力放在一起
-2. **description 是触发器，不是介绍** — 把隐性意图、口语化说法、中英文同义词都写进去
-3. **规则要能落到交付** — 明确执行流程、确认节点、验证方式和最终产物
+| 场景 | Skill | 适合做什么 |
+|---|---|---|
+| 页面与演示 | [`HTMLHero.skill`](./skills/HTMLHero.skill) · [`HTMLPPT.skill`](./skills/HTMLPPT.skill) | 从视觉需求生成可运行的 Hero，并扩展为 HTML/PPT 式演示 |
+| 像素动画 | [`clawd-animation`](./skills/clawd-animation) · [`clawd-animation-lite`](./skills/clawd-animation-lite) | 生成完整或轻量的 Clawd 像素风 HTML 动画 |
+| 经验沉淀 | [`self-improving-agent`](./skills/self-improving-agent) | 把可复用的经验、错误和修正记录到本地 `.learnings/` |
+| Vibe 创作 | [`vibe-coding-prd`](./skills/vibe-coding-prd) · [`vibe-writing`](./skills/vibe-writing) | 整理 coding-agent-ready PRD，创作或审校中文长文 |
+| 会议与汇报 | [`会记成报.skill`](./skills/会记成报.skill) · [`日报成稿.skill`](./skills/日报成稿.skill) | 生成可核对的会议纪要、日报、周报素材和日报草稿 |
+| 公众号 | [`wechat-coauthor`](./skills/wechat-coauthor) · [`wechat-formatter`](./skills/wechat-formatter) · [`wechat-publisher`](./skills/wechat-publisher) | 写作协作、Markdown 转微信 HTML、素材上传、草稿与发布 |
 
----
+## 安装与加载
 
-## 📦 已收录 Skills
-
-| 分类入口 | 包含 Skill | 用途 | 状态 |
-|---|---|---|---|
-| HTML 首页 / 演示 | [`HTMLHero.skill`](./skills/HTMLHero.skill)<br>[`HTMLPPT.skill`](./skills/HTMLPPT.skill) | 生成第一页 Hero，并扩展成一套 HTML/PPT 演示文稿 | ✅ |
-| Clawd 动画 | [`clawd-animation`](./skills/clawd-animation)<br>[`clawd-animation-lite`](./skills/clawd-animation-lite) | 像素风动画生成器，包含完整版和轻量版 | ✅ |
-| 经验记忆 | [`self-improving-agent`](./skills/self-improving-agent) | 会话结束时提取经验教训到 `.learnings/` 暂存区，人工审核后才入长期记忆 | ✅ |
-| Vibe 创作 | [`vibe-coding-prd`](./skills/vibe-coding-prd)<br>[`vibe-writing`](./skills/vibe-writing) | 整理供编码 Agent 执行的 PRD，并创建、改写或审校保留作者声音的中文内容 | ✅ |
-| 公众号工作流 | [`wechat-coauthor`](./skills/wechat-coauthor)<br>[`wechat-formatter`](./skills/wechat-formatter)<br>[`wechat-publisher`](./skills/wechat-publisher) | 写作协作、微信排版、封面素材上传、草稿创建与发布 | ✅ |
-
----
-
-## 🚀 使用方式
+### 1. 获取仓库
 
 ```bash
-# 1. 克隆仓库
 git clone https://github.com/YiShu5/claude-skills.git
-
-# 2. 把想用的 skill 文件夹复制到 Claude Code 的 skills 目录
-cp -r claude-skills/skills/clawd-animation ~/.claude/skills/
-
-# 3. 在 Claude Code 中直接对话触发，无需额外配置
+cd claude-skills
 ```
 
-> Windows 用户路径示例：`C:\Users\<你>\.claude\skills\`
+### 2. 复制到 Agent 的 Skills 目录
 
----
+将整个 Skill 文件夹复制到你所使用工具的本地 Skills 目录。下面是常见约定，若工具提供了自定义路径，请优先使用自定义路径：
 
-## 🌱 分支约定
+| 工具 / Harness | 常见目录 | 示例 |
+|---|---|---|
+| Claude Code | `~/.claude/skills/` | `cp -R skills/vibe-writing ~/.claude/skills/` |
+| Codex | `~/.codex/skills/` | `cp -R skills/vibe-writing ~/.codex/skills/` |
+| DeepSeek / 其他 Harness | 工具配置的 `skills/` 目录 | `cp -R skills/vibe-writing /path/to/your/skills/` |
 
-- `master` — 稳定版本，经过验证的 skills
-- `feat/<skill-name>` — 新 skill 或改进中的 skill，通过 PR 合入
+也可以只复制需要的 Skill：
 
-欢迎提 issue 反馈使用问题或建议新的 skill。
+```bash
+cp -R skills/会记成报.skill /path/to/your/skills/
+```
+
+### 3. 重新加载并触发
+
+重启或重新加载 Agent 后，直接用自然语言描述任务即可。例如：
+
+```text
+把这份会议转写整理成会议纪要、我的日报和周报素材卡。
+```
+
+```text
+把这个产品想法整理成可以直接交给编码 Agent 的中文 PRD。
+```
+
+Agent 应根据 `SKILL.md` 中的 description 和触发条件选择对应 Skill。若没有自动触发，也可以在对话中明确指定 Skill 名称，或把 `SKILL.md` 内容作为项目指令加载。
+
+## 如何选择
+
+- 要做单页视觉入口：使用 `HTMLHero.skill`；要扩展多页演示：使用 `HTMLPPT.skill`。
+- 要快速做一个简单动画：使用 `clawd-animation-lite`；需要更完整场景：使用 `clawd-animation`。
+- 要写文章：使用 `vibe-writing` 或 `wechat-coauthor`；要排版或发布，再接 `wechat-formatter`、`wechat-publisher`。
+- 要整理会议和工作汇报：使用 `会记成报.skill`；只需要个人日报：使用 `日报成稿.skill`。
+- 要给编码 Agent 的执行材料：使用 `vibe-coding-prd`。
+
+## Skill 的基本结构
+
+```text
+my-skill/
+├── SKILL.md          # 必需：名称、触发条件、流程和验收标准
+├── references/       # 可选：模板、规范、示例
+├── templates/        # 可选：可复用模板
+└── scripts/          # 可选：辅助脚本
+```
+
+修改或新增 Skill 时，请保持入口文件名为 `SKILL.md`，并在 frontmatter 中写清 `name` 与 `description`。description 用来帮助 Agent 判断何时加载，不要只写宣传语。
+
+## 贡献与版本
+
+- `master`：稳定版本
+- `feat/<skill-name>`：新 Skill 或改进中的 Skill
+
+欢迎提交 Issue 或 Pull Request。提交前请至少检查：链接可用、触发条件清楚、示例可以复现、敏感配置没有写入仓库。
 
 ---
 
