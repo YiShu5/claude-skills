@@ -1,130 +1,29 @@
 ---
 name: HTMLHero.skill
-description: 'HTML/React 第一页 Hero 生成工作流。用户提供 Hero Prompt、品牌主题、首页视觉需求、背景视频/图片、或要求"先对齐再生成第一页"、"需要你更改的部分: {}"、"做一个能跑的交互 Hero 页面"时必须使用。本 skill 要求先同步理解和需要替换的部分，确认后再创建或修改前端工程，并交付可运行、可预览、可打包的第一页。'
+description: "Build or extend a runnable, responsive Hero first screen for an HTML/React site or web presentation when the user provides a Hero brief, visual reference, media, or existing frontend. Use this for the Hero itself; use HTMLPPT.skill for a multi-slide deck."
 ---
 
 # HTMLHero.skill
 
-把用户给的 Hero Prompt 或主题，生成一个可运行、可演示、可继续扩展成 HTML/PPT 的第一页 Hero。
+Turn a Hero brief or an existing first-screen implementation into a runnable, reviewable Hero. The first screen should establish a visual system that can be extended later.
 
-核心原则：**第一页不是普通首页，它是后续整套页面的视觉母版。**
+## Route
 
-## 适用场景
+- Use for a new or changed Hero first screen with layout, copy, media, or interaction.
+- If the request is a multi-slide HTML presentation, use `HTMLPPT.skill` instead.
+- If the request is only visual ideation or copy, do not force an implementation workflow.
 
-当用户提出以下任一需求时使用：
+## Workflow
 
-- 按一个 Hero Prompt 生成第一页
-- 把现成 Prompt 的主题、标题、文案换成用户的新主题
-- 做一个现代、互动、能跑的 Hero section
-- 需要 React / Vite / Tailwind / motion 风格的第一页
-- 需要背景视频、打字机标题、交互 pills、导航、CTA、视觉母版
-- 用户说“先同步一下”“有什么不懂先问我”“需要你更改的部分: {}”
+1. Establish the finish line and scope. Inspect the target directory, recent `AGENTS.md`, `package.json`, lockfile, relevant entrypoints, and referenced assets. Do not read the whole repository by default.
+2. Resolve the smallest useful Hero contract: purpose and audience, required copy, visual references, media, interactions, target viewport, existing stack, and delivery target. Read [references/hero-contract.md](references/hero-contract.md) when inputs are incomplete or the work will be handed off.
+3. Apply constraints in this order: user request, existing design system and project conventions, then skill defaults. Make reversible assumptions and state them. Ask only when a missing decision materially changes the result or crosses a real permission boundary; a routine local implementation does not need a ritual confirmation.
+4. Implement in the existing stack and file structure. For a new project, choose the smallest viable starter for the requested output; do not force React, Tailwind, animation libraries, or new dependencies. Preserve unrelated dirty work and avoid overwriting files outside scope.
+5. Make the Hero usable without unavailable assets: provide a poster, gradient, local fallback, or explicit placeholder when appropriate. Keep CTA targets meaningful, use semantic HTML, and treat animation as optional and reduced-motion aware.
+6. Read [references/validation.md](references/validation.md) for the relevant checks. Continue through build, preview, visual inspection, and fixes until the finish line is met or a concrete blocker remains.
 
-## 阶段 1：先读完，再对齐
+## Completion and delivery
 
-不要立刻写代码。先完整阅读用户给的：
+A task is complete when the requested Hero is implemented, the available build/preview path has been exercised, the target viewport has been inspected, and material failures have been fixed or clearly reported. Do not stop after the first implementation merely to request review when the remaining work is safe and in scope.
 
-- Hero Prompt
-- 附件文本
-- 主题/主旨
-- 使用场景
-- 现有工程文件
-- 技术栈限制
-
-然后提炼：
-
-- 页面主标题和副标题
-- 核心叙事或汇报主旨
-- 必须保留的元素，如背景视频、打字机、pills、导航
-- 可替换元素，如品牌名、按钮文案、选项文案、说明文案
-- 视觉风格来源，如字体、色值、间距、卡片、动效
-- 是否要创建新工程，还是接入现有工程
-- 交付物：本地预览、源码、zip、部署
-
-输出一段简短理解说明，并且必须输出下面这个块。
-
-如果有需要用户确认或替换的内容：
-
-```text
-需要你更改的部分: {
-  "主题/主旨": "需要用户确认或替换的内容",
-  "主标题": "需要用户确认或替换的内容",
-  "副标题/说明": "需要用户确认或替换的内容",
-  "背景媒体": "需要用户确认或替换的内容",
-  "交互组件": "需要用户确认或替换的内容",
-  "技术栈/工程位置": "需要用户确认或替换的内容",
-  "交付物": "需要用户确认或替换的内容"
-}
-```
-
-只保留真正需要确认的 key。没有不确定项时输出：
-
-```text
-需要你更改的部分: {}
-```
-
-最后问用户是否确认执行。
-
-## 阶段 2：确认后再执行
-
-只有当用户明确回复类似下面的话，才开始修改代码：
-
-- `确认`
-- `执行`
-- `开始做`
-- `没问题`
-- `就按这个来`
-
-如果用户继续补充内容，不要急着执行；更新理解和 `需要你更改的部分`。
-
-## 执行规则
-
-执行时必须：
-
-1. 先检查当前目录是否已有工程，不要盲目覆盖。
-2. 如果已有工程，优先顺着现有技术栈和文件结构改。
-3. 如果没有合适工程，再创建轻量 Vite + React 页面。
-4. 不随意新增依赖；如果需要新增，必须和用户目标直接相关。
-5. 保留用户指定的 Hero 结构和关键视觉元素。
-6. 主题替换要彻底：品牌名、标题、副标题、选项、CTA、提示文案都要一致。
-7. Hero 首屏必须直接是可用体验，不做营销式空壳介绍页。
-8. 背景视频/图片要真实渲染，不要只留占位。
-9. 动画要有质感但克制：打字机只用于主标题，背景运动避免卡顿和 PPT 感。
-10. 页面必须适配桌面和移动端，文字不能重叠、溢出或被媒体挡住。
-
-## 推荐实现约束
-
-如果用户没有另行指定，优先使用：
-
-- Vite + React
-- Tailwind CSS
-- `motion/react` 做进场、hover、切换动画
-- `lucide-react` 做按钮/icon
-- CSS variables 保存核心颜色
-- 一个主组件 + 少量小组件，先保证可继续扩展
-
-背景视频交互优先选择“视频自然播放 + 鼠标视差/漂移”的方案；只有用户明确要求拖动时间轴时，才用 `currentTime` scrub。远程 MP4 反复 seek 容易卡顿。
-
-## 验收
-
-完成后必须尽量验证：
-
-- `npm run build` 或项目等价构建命令成功
-- 本地 dev server 能打开
-- 首屏不是空白，主标题可见
-- 背景媒体加载或有合理降级
-- 主要交互可点击
-- 桌面和移动端至少各检查一次
-- 如用户要给别人看，生成 zip 并排除 `node_modules/`、`dist/`、`.git/`
-
-## 交付回复
-
-最终回复保持简短，包含：
-
-- 改了什么
-- 关键文件路径
-- 本地预览 URL
-- 构建/验证结果
-- zip 或部署链接，如已生成
-
-不要只给设计建议；确认执行后要完成到可运行、可验证、可交付。
+Report the changed files, actual run/build commands and results, preview URL or entrypoint, visual/interaction checks, assumptions or fallbacks, and any concrete blocker. Only create a zip or publish when requested.
