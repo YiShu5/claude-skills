@@ -28,6 +28,7 @@ Skill 遵循通用的 Markdown 约定，不绑定某一个模型或客户端。�
 | Vibe 创作 | [`vibe-coding-prd`](./skills/vibe-coding-prd) · [`vibe-writing`](./skills/vibe-writing) | 整理 coding-agent-ready PRD，创作或审校中文长文 |
 | 会议与汇报 | [`会记成报.skill`](./skills/会记成报.skill) · [`日报成稿.skill`](./skills/日报成稿.skill) | 生成可核对的会议纪要、日报、周报素材和日报草稿 |
 | 公众号 | [`wechat-coauthor`](./skills/wechat-coauthor) · [`wechat-formatter`](./skills/wechat-formatter) · [`wechat-publisher`](./skills/wechat-publisher) | 写作协作、Markdown 转微信 HTML、素材上传、草稿与发布 |
+| 方片品牌与培训 | [`方片/fangpian-brand-kit`](./skills/方片/fangpian-brand-kit) · [`方片/fangpian-course-deck`](./skills/方片/fangpian-course-deck) | 方片官方品牌视觉规范与素材库（logo/色板/IP/海报模板）；品牌化对内培训课件模板与制作法 |
 
 ## 安装与加载
 
